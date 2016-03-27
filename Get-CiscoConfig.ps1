@@ -4,10 +4,10 @@ Function Get-CiscoConfig {
   Script to backup Cisco switch (running-config) to file
 
 .PARAMETERS
-  List                      (MANDATORY)              -  Txt File with switch IP addresses
-  Destination           (MANDATORY)              -  Folder for Cisco Backup 
-  Credential                (MANDATORY)         -  Credentials for Cisco Switch account (Plink.exe doesn't support $Cred sadly)
-  Commands                  (OPTIONAL)          -  Commands to run against Cisco Switch (If not specified, "show running-config")
+  List                  (MANDATORY)         -  Txt File with switch IP addresses
+  Destination           (MANDATORY)         -  Folder for Cisco Backup 
+  Credential            (MANDATORY)         -  Credentials for Cisco Switch account (Plink.exe doesn't support $Cred sadly)
+  Commands              (OPTIONAL)          -  Commands to run against Cisco Switch (If not specified, "show running-config")
 
 .EXAMPLE
   Get-CiscoConfig -List "C:\Backups\Cisco\switches.txt" -Destination "C:\Backups\Cisco" -Credential $Cred -Commands "C:\Backups\Cisco\commands.txt" 
@@ -30,19 +30,20 @@ Param (
   )
 
   # VERIFY SWITCH LIST PARAMETER AND CONVERT TO OBJECT
-    Try {$ListObj = Get-Item $List -ErrorAction Stop}
-    Catch {Write-Host "[ERROR] Switch List Path is inaccessible. Function aborting..." -ForegroundColor Red; Exit }
+  Try {$ListObj = Get-Item $List -ErrorAction Stop}
+  Catch {Write-Host "[ERROR] Switch List Path is inaccessible. Function aborting..." -ForegroundColor Red; Exit }
 
   # VERIFY DESTINATION PARAMETER AND CONVERT TO OBJECT
-    Try {$DestinationObj = Get-Item $Destination  -ErrorAction Stop}
-   Catch {Write-Host "[ERROR] Destination Path is inaccessible. Function aborting..." -ForegroundColor Red; Exit }
+  Try {$DestinationObj = Get-Item $Destination  -ErrorAction Stop}
+  Catch {Write-Host "[ERROR] Destination Path is inaccessible. Function aborting..." -ForegroundColor Red; Exit }
 
-   # VERIFY COMMANDS PARAMETER AND CONVERT TO OBJECT
+  # VERIFY COMMANDS PARAMETER AND CONVERT TO OBJECT
   If ($Commands.Length -gt 1)
   {
     Try {$CommandsObj = Get-Item $Commands -ErrorAction Stop}
     Catch {Write-Host "[ERROR] Command Path is inaccessible. Function aborting..." -ForegroundColor Red; Exit }
   }
+  
   # OTHERWISE, CREATE COMMANDS.TXT WITH "SHOW RUNNING-CONFIG"
   Else 
   {
@@ -64,10 +65,10 @@ Param (
 
   # CREATE FOLDER FOR STORING SSH KEYS IF NOT EXIST
    If (!(Test-Path $KeyPath))
-      {
-        Try {New-Item -ItemType Directory -Path $KeyPath  -ErrorAction Stop | Out-Null}
-        Catch {Write-Host "[ERROR] Unable to create subfolder in Destination folder. Function aborting..." -ForegroundColor Red; Exit }
-      }
+    {
+      Try {New-Item -ItemType Directory -Path $KeyPath  -ErrorAction Stop | Out-Null}
+      Catch {Write-Host "[ERROR] Unable to create subfolder in Destination folder. Function aborting..." -ForegroundColor Red; Exit }
+    }
 
   # DEFINE DATE VARIABLE
   $Date = Get-Date -Format M-d-yyyy
