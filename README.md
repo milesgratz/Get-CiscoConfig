@@ -6,7 +6,7 @@ PowerShell function to run commands via SSH on Cisco switches (e.g. backup runni
   - IP addresses of relevant Cisco equipment
   - SSH credentials for relevant Cisco equipment​
 
-<img src=http://i.imgur.com/lTMcyMj.png>
+<img src=http://i.imgur.com/sJEq5wp.png>
 <img src=http://i.imgur.com/5ImKCMw.png>
 
 # Detailed Guide
