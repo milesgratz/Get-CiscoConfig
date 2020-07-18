@@ -7,7 +7,7 @@ PowerShell function to run commands via SSH on Cisco switches (e.g. backup runni
   - SSH credentials for relevant Cisco equipment​
 
 # Detailed Guide
-http://www.serveradventures.com/the-adventures/get-ciscoconfig-using-powershell-to-backup-cisco-configurations
+< removed my old blog links post due to malicious domain parking >
 
 # Examples
 
